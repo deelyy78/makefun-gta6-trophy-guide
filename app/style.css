@@ -1,0 +1,294 @@
+/* Leonida Legend — GTA VI trophy guide & tracker.
+   A neon-dusk look of its own: deep violet night, sunset pink and orange, lagoon cyan.
+   No game artwork, no logos; colour and type do all the work. */
+
+:root {
+  --bg: #0c0918;
+  --bg-2: #14102a;
+  --panel: #1a1433;
+  --panel-2: #211a42;
+  --line: #332a5e;
+  --ink: #f2eefc;
+  --ink-dim: #b7aede;
+  --ink-faint: #8d84b8;
+  --pink: #ff3d7e;
+  --orange: #ff9a3d;
+  --cyan: #2dd4ff;
+  --gold: #ffd23d;
+  --silver: #d7deee;
+  --bronze: #eda15f;
+  --platinum: #7df9e8;
+  --warn: #ff5d5d;
+  --good: #52e6a4;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html { scrollbar-color: var(--line) var(--bg); }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 480px at 85% -120px, rgba(255, 61, 126, 0.22), transparent 60%),
+    radial-gradient(900px 500px at -10% 0%, rgba(45, 212, 255, 0.14), transparent 55%),
+    linear-gradient(180deg, var(--bg-2), var(--bg) 340px);
+  color: var(--ink);
+  font: 14.5px/1.5 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+/* ---------- top bar ---------- */
+
+.topbar {
+  display: flex; gap: 28px; align-items: stretch; flex-wrap: wrap;
+  padding: 22px 28px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { flex: 1 1 420px; min-width: 300px; }
+
+.brand-kicker {
+  margin: 0 0 4px; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cyan); font-weight: 700;
+}
+
+.brand h1 {
+  margin: 0; font-size: 40px; line-height: 1.05; font-weight: 800; letter-spacing: -0.01em;
+  background: linear-gradient(92deg, #ffd23d 0%, #ff9a3d 30%, #ff3d7e 62%, #b06bff 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.brand-sub { margin: 8px 0 0; color: var(--ink-dim); max-width: 56ch; }
+
+.progress-box {
+  flex: 0 1 380px; min-width: 300px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.progress-head { display: flex; justify-content: space-between; font-weight: 700; }
+#progress-pct { color: var(--gold); }
+
+.progress-track {
+  height: 10px; margin: 9px 0 10px; border-radius: 6px; overflow: hidden;
+  background: #0a0720; border: 1px solid var(--line);
+}
+#progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--orange), var(--pink));
+  transition: width 0.25s ease;
+}
+
+.grade-progress { display: flex; gap: 6px; flex-wrap: wrap; }
+.grade-pill {
+  font-size: 12px; padding: 2px 9px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--panel-2); color: var(--ink-dim);
+}
+.grade-pill b { color: var(--ink); }
+
+.progress-actions { display: flex; gap: 8px; margin-top: 12px; }
+.progress-actions button, .import-btn {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.progress-actions button:hover, .import-btn:hover { border-color: var(--pink); color: #fff; }
+.import-btn input { display: none; }
+
+/* ---------- view tabs ---------- */
+
+.view-tabs {
+  display: flex; gap: 8px; padding: 14px 28px 0; flex-wrap: wrap;
+}
+.tab {
+  background: transparent; border: 1px solid var(--line); border-bottom: none;
+  border-radius: 10px 10px 0 0; padding: 9px 16px; font-weight: 700; color: var(--ink-dim);
+}
+.tab.is-active {
+  color: var(--ink); background: var(--panel);
+  box-shadow: inset 0 3px 0 var(--pink);
+}
+.tab-badge {
+  background: var(--warn); color: #1a0510; border-radius: 999px;
+  padding: 0 7px; font-size: 12px; margin-left: 4px;
+}
+
+main { padding: 0 28px 28px; }
+.view { display: none; }
+.view.is-active { display: block; }
+#view-checklist {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 16px;
+}
+#view-roadmap, #view-missables {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 20px;
+}
+
+/* ---------- toolbar ---------- */
+
+.toolbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding-bottom: 12px; border-bottom: 1px solid var(--line);
+}
+.search-box { flex: 1 1 240px; }
+.search-box input {
+  width: 100%; padding: 8px 12px; border-radius: 8px;
+  background: #0d0a20; border: 1px solid var(--line); color: var(--ink);
+}
+.search-box input:focus { outline: 2px solid var(--cyan); outline-offset: 0; }
+
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  background: var(--panel-2); border: 1px solid var(--line); color: var(--ink-dim);
+  border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600;
+}
+.chip.is-active { background: var(--pink); border-color: var(--pink); color: #fff; }
+.chip-warn.is-active { background: var(--warn); border-color: var(--warn); color: #20060a; }
+
+.select-box { font-size: 13px; color: var(--ink-dim); display: flex; gap: 6px; align-items: center; }
+.select-box select {
+  background: #0d0a20; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px;
+}
+
+.spoiler-toggle {
+  display: flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 600;
+  color: var(--ink-dim); cursor: pointer; user-select: none;
+}
+.spoiler-toggle input { display: none; }
+.spoiler-toggle .switch {
+  width: 36px; height: 20px; border-radius: 999px; background: #0d0a20;
+  border: 1px solid var(--line); position: relative; flex: none;
+}
+.spoiler-toggle .switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--ink-faint); transition: all 0.15s ease;
+}
+.spoiler-toggle input:checked + .switch { background: rgba(45, 212, 255, 0.25); border-color: var(--cyan); }
+.spoiler-toggle input:checked + .switch::after { left: 18px; background: var(--cyan); }
+
+.result-line { color: var(--ink-faint); font-size: 13px; margin: 10px 2px; }
+
+/* ---------- checklist layout ---------- */
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 16px; align-items: start; }
+@media (max-width: 980px) { .layout { grid-template-columns: 1fr; } }
+
+.trophy-list { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+.card {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 6px 12px; align-items: start;
+  text-align: left; width: 100%;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 11px 14px; color: var(--ink);
+}
+.card:hover { border-color: var(--ink-faint); }
+.card.is-selected { border-color: var(--pink); box-shadow: 0 0 0 1px var(--pink); }
+.card.is-earned { opacity: 0.72; }
+.card.is-earned .card-name { text-decoration: line-through; text-decoration-color: var(--pink); }
+
+.card-check { grid-row: span 3; padding-top: 2px; }
+.card-check input { width: 20px; height: 20px; accent-color: var(--pink); cursor: pointer; }
+
+.card-top { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; min-width: 0; }
+.card-name { font-weight: 700; font-size: 15.5px; }
+.card-desc { color: var(--ink-dim); font-size: 13.5px; }
+.card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+.grade-badge {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid;
+}
+.grade-platinum { color: var(--platinum); border-color: var(--platinum); }
+.grade-gold { color: var(--gold); border-color: var(--gold); }
+.grade-silver { color: var(--silver); border-color: var(--silver); }
+.grade-bronze { color: var(--bronze); border-color: var(--bronze); }
+
+.tag {
+  font-size: 11.5px; padding: 1px 8px; border-radius: 999px;
+  background: #0d0a20; border: 1px solid var(--line); color: var(--ink-dim);
+}
+.tag-missable { background: rgba(255, 93, 93, 0.16); border-color: var(--warn); color: #ffb3b3; font-weight: 700; }
+.tag-stage { color: var(--cyan); border-color: rgba(45, 212, 255, 0.4); }
+
+.card-open { color: var(--ink-faint); font-size: 12.5px; white-space: nowrap; padding-top: 4px; }
+.card.is-selected .card-open { color: var(--pink); }
+
+.card.is-masked .card-name, .card.is-masked .card-desc { color: var(--ink-faint); font-style: italic; }
+
+/* ---------- detail panel ---------- */
+
+.detail {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto;
+}
+.detail h2 { margin: 6px 0 4px; font-size: 21px; line-height: 1.25; }
+.detail .official-desc { color: var(--ink-dim); margin: 0 0 10px; font-size: 14.5px; }
+.detail h3 {
+  margin: 16px 0 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan);
+}
+.detail p { margin: 0 0 8px; }
+.detail ol { margin: 0; padding-left: 20px; }
+.detail ol li { margin-bottom: 4px; }
+.detail .target { font-weight: 700; color: var(--gold); }
+.earn-btn {
+  width: 100%; margin-top: 6px; padding: 9px 12px; border-radius: 8px; font-weight: 700;
+  background: linear-gradient(90deg, var(--orange), var(--pink)); border: none; color: #fff;
+}
+.earn-btn.is-earned { background: var(--panel-2); border: 1px solid var(--good); color: var(--good); }
+.missable-card .earn-btn { width: auto; padding: 9px 18px; }
+.callout {
+  border: 1px solid var(--warn); background: rgba(255, 93, 93, 0.1);
+  border-radius: 8px; padding: 10px 12px; margin: 12px 0;
+}
+.callout b { color: #ffb3b3; }
+.sources { list-style: none; margin: 0; padding: 0; }
+.sources li { margin-bottom: 5px; font-size: 13.5px; color: var(--ink-dim); }
+.sources a { color: var(--cyan); text-decoration: none; }
+.sources a:hover { text-decoration: underline; }
+.detail-empty { color: var(--ink-faint); }
+
+/* ---------- roadmap & missables ---------- */
+
+.roadmap-intro, .stage-card, .missable-card, .safe-panel {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px 18px; margin-bottom: 14px;
+}
+.roadmap-intro h2, .safe-panel h2 { margin: 0 0 8px; font-size: 19px; }
+.roadmap-intro ul, .safe-panel ul { margin: 6px 0 0; padding-left: 20px; }
+.roadmap-intro li, .safe-panel li { margin-bottom: 4px; }
+.stage-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.stage-num {
+  background: linear-gradient(90deg, var(--orange), var(--pink)); color: #fff; font-weight: 800;
+  border-radius: 8px; padding: 2px 10px; font-size: 13px;
+}
+.stage-card h3 { margin: 0; font-size: 17px; }
+.stage-hours { color: var(--gold); font-weight: 700; font-size: 13px; }
+.stage-card p { color: var(--ink-dim); margin: 8px 0 12px; }
+.stage-rows { display: flex; flex-direction: column; gap: 6px; }
+.stage-row {
+  display: grid; grid-template-columns: auto auto 1fr auto; gap: 10px; align-items: center;
+  background: #0d0a20; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px;
+  text-align: left; width: 100%; color: var(--ink); cursor: pointer;
+}
+.stage-row:hover { border-color: var(--ink-faint); }
+.stage-row input { width: 17px; height: 17px; accent-color: var(--pink); }
+.stage-row .row-name { font-weight: 600; }
+.stage-row.is-earned .row-name { text-decoration: line-through; text-decoration-color: var(--pink); opacity: 0.7; }
+.stage-row .row-count { color: var(--ink-faint); font-size: 12.5px; }
+
+.missable-card { border-color: var(--warn); }
+.missable-card h3 { margin: 4px 0; font-size: 18px; }
+.missable-card h3.sources-head {
+  margin: 14px 0 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan);
+}
+.missable-card .warn-line { color: #ffb3b3; font-weight: 700; }
+
+.footer { padding: 4px 28px 26px; color: var(--ink-faint); font-size: 12.5px; max-width: 110ch; }
